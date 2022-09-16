@@ -11,6 +11,9 @@ import java.io.File;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 基准测试demo
+ */
 @BenchmarkMode(Mode.AverageTime)
 @State(Scope.Thread)
 @Fork(1)
