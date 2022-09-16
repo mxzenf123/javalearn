@@ -1,0 +1,386 @@
+
+<html>
+<head>
+<title>Java Concurrency Stress test report</title>
+ <style type="text/css">
+   * { font-family: Arial; }
+   table { font-size: 9pt; }
+   a { color: #000000; }
+   .progress { padding: 0px; }
+   .header { text-align: left; }
+   .section1 { font-size: 12pt; background-color: #BDB76B; color: #000000; font-weight: bold;}
+   .section2 { font-size: 12pt; background-color: #F0E68C; color: #000000; font-weight: bold;}
+   .cell1 { background-color: #FAFAD2; }
+   .cell2 { background-color: #EEE8AA; }
+   .passedProgress { background-color: #00AA00; color: #FFFFFF; text-align: center; font-weight: bold; }
+   .failedProgress { background-color: #FF0000; color: #FFFFFF; text-align: center; font-weight: bold; }
+   .passed { color: #00AA00; text-align: center; font-weight: bold; }
+   .failed { color: #FF0000; text-align: center; font-weight: bold; }
+   .interesting { color: #0000FF; text-align: center; font-weight: bold; }
+   .spec { color: #AAAA00; text-align: center; font-weight: bold; }
+   .endResult { font-size: 48pt; text-align: center; font-weight: bold; }
+ </style>
+</head>
+<body>
+<h1>org.yangxin.jcstress.Demo2</h1>
+<h3>Description and references</h3>
+<p>null</p>
+<h3>Environment</h3>
+<table>
+<tr>
+<td nowrap>java.specification.name</td>
+<td nowrap>Java Platform API Specification</td>
+</tr>
+<tr>
+<td nowrap>java.specification.vendor</td>
+<td nowrap>Oracle Corporation</td>
+</tr>
+<tr>
+<td nowrap>java.specification.version</td>
+<td nowrap>1.8</td>
+</tr>
+<tr>
+<td nowrap>java.vendor</td>
+<td nowrap>Oracle Corporation</td>
+</tr>
+<tr>
+<td nowrap>java.version</td>
+<td nowrap>1.8.0_331</td>
+</tr>
+<tr>
+<td nowrap>java.vm.name</td>
+<td nowrap>Java HotSpot(TM) 64-Bit Server VM</td>
+</tr>
+<tr>
+<td nowrap>java.vm.vendor</td>
+<td nowrap>Oracle Corporation</td>
+</tr>
+<tr>
+<td nowrap>java.vm.version</td>
+<td nowrap>25.331-b09</td>
+</tr>
+<tr>
+<td nowrap>os.arch</td>
+<td nowrap>amd64</td>
+</tr>
+<tr>
+<td nowrap>os.name</td>
+<td nowrap>Windows 11</td>
+</tr>
+<tr>
+<td nowrap>os.version</td>
+<td nowrap>10.0</td>
+</tr>
+</table>
+<h3>Test configurations</h3>
+<table>
+<tr>
+<td nowrap><b>TC 1</b></td>
+<td nowrap>JVM options: [-javaagent:D:\IntelliJIDEA\lib\idea_rt.jar=57996:D:\IntelliJIDEA\bin, -Dfile.encoding=UTF-8]
+Iterations: 5
+Time: 1000</td>
+</tr>
+<tr>
+<td nowrap><b>TC 2</b></td>
+<td nowrap>JVM options: [-javaagent:D:\IntelliJIDEA\lib\idea_rt.jar=57996:D:\IntelliJIDEA\bin, -Dfile.encoding=UTF-8, -XX:-TieredCompilation]
+Iterations: 5
+Time: 1000</td>
+</tr>
+<tr>
+<td nowrap><b>TC 3</b></td>
+<td nowrap>JVM options: [-javaagent:D:\IntelliJIDEA\lib\idea_rt.jar=57996:D:\IntelliJIDEA\bin, -Dfile.encoding=UTF-8, -XX:TieredStopAtLevel=1]
+Iterations: 5
+Time: 1000</td>
+</tr>
+<tr>
+<td nowrap><b>TC 4</b></td>
+<td nowrap>JVM options: [-javaagent:D:\IntelliJIDEA\lib\idea_rt.jar=57996:D:\IntelliJIDEA\bin, -Dfile.encoding=UTF-8, -Xint]
+Iterations: 5
+Time: 1000</td>
+</tr>
+</table>
+<h3>Observed states</h3>
+<table width=100% cellpadding=5>
+<tr>
+<th>Observed state</th>
+<th nowrap>TC 1</th>
+<th nowrap>TC 2</th>
+<th nowrap>TC 3</th>
+<th nowrap>TC 4</th>
+<th>Expectation</th>
+<th>Interpretation</th>
+</tr>
+<tr>
+<td align='center'>100000, 100000</td>
+<td align='right' width='7.5%' bgColor=#00ffff>38</td>
+<td align='right' width='7.5%' bgColor=#00ffff>34</td>
+<td align='right' width='7.5%' bgColor=#00ffff>30</td>
+<td align='right' width='7.5%' bgColor=#c0c0c0>0</td>
+<td>ACCEPTABLE_INTERESTING</td>
+<td>预想值</td>
+</tr>
+<tr>
+<td align='center'>100000, 12500</td>
+<td align='right' width='7.5%' bgColor=#ff0000>1400</td>
+<td align='right' width='7.5%' bgColor=#ff0000>1918</td>
+<td align='right' width='7.5%' bgColor=#ff0000>529</td>
+<td align='right' width='7.5%' bgColor=#ff0000>13</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 15625</td>
+<td align='right' width='7.5%' bgColor=#ff0000>593</td>
+<td align='right' width='7.5%' bgColor=#ff0000>890</td>
+<td align='right' width='7.5%' bgColor=#ff0000>536</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 18750</td>
+<td align='right' width='7.5%' bgColor=#ff0000>207</td>
+<td align='right' width='7.5%' bgColor=#ff0000>304</td>
+<td align='right' width='7.5%' bgColor=#ff0000>167</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 21875</td>
+<td align='right' width='7.5%' bgColor=#ff0000>93</td>
+<td align='right' width='7.5%' bgColor=#ff0000>135</td>
+<td align='right' width='7.5%' bgColor=#ff0000>29</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 25000</td>
+<td align='right' width='7.5%' bgColor=#ff0000>59</td>
+<td align='right' width='7.5%' bgColor=#ff0000>57</td>
+<td align='right' width='7.5%' bgColor=#ff0000>17</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 28125</td>
+<td align='right' width='7.5%' bgColor=#ff0000>102</td>
+<td align='right' width='7.5%' bgColor=#ff0000>87</td>
+<td align='right' width='7.5%' bgColor=#ff0000>7</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 3125</td>
+<td align='right' width='7.5%' bgColor=#ff0000>3767</td>
+<td align='right' width='7.5%' bgColor=#ff0000>3007</td>
+<td align='right' width='7.5%' bgColor=#ff0000>462</td>
+<td align='right' width='7.5%' bgColor=#ff0000>34</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 31250</td>
+<td align='right' width='7.5%' bgColor=#ff0000>130</td>
+<td align='right' width='7.5%' bgColor=#ff0000>139</td>
+<td align='right' width='7.5%' bgColor=#ff0000>14</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 34375</td>
+<td align='right' width='7.5%' bgColor=#ff0000>58</td>
+<td align='right' width='7.5%' bgColor=#ff0000>67</td>
+<td align='right' width='7.5%' bgColor=#ff0000>6</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 37500</td>
+<td align='right' width='7.5%' bgColor=#ff0000>19</td>
+<td align='right' width='7.5%' bgColor=#ff0000>18</td>
+<td align='right' width='7.5%' bgColor=#ff0000>6</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 40625</td>
+<td align='right' width='7.5%' bgColor=#ff0000>19</td>
+<td align='right' width='7.5%' bgColor=#ff0000>31</td>
+<td align='right' width='7.5%' bgColor=#ff0000>4</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 43750</td>
+<td align='right' width='7.5%' bgColor=#ff0000>14</td>
+<td align='right' width='7.5%' bgColor=#ff0000>19</td>
+<td align='right' width='7.5%' bgColor=#ff0000>6</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 46875</td>
+<td align='right' width='7.5%' bgColor=#ff0000>17</td>
+<td align='right' width='7.5%' bgColor=#ff0000>21</td>
+<td align='right' width='7.5%' bgColor=#ff0000>8</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 50000</td>
+<td align='right' width='7.5%' bgColor=#ff0000>19</td>
+<td align='right' width='7.5%' bgColor=#ff0000>26</td>
+<td align='right' width='7.5%' bgColor=#ff0000>11</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 53125</td>
+<td align='right' width='7.5%' bgColor=#ff0000>11</td>
+<td align='right' width='7.5%' bgColor=#ff0000>10</td>
+<td align='right' width='7.5%' bgColor=#ff0000>4</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 56250</td>
+<td align='right' width='7.5%' bgColor=#ff0000>21</td>
+<td align='right' width='7.5%' bgColor=#ff0000>13</td>
+<td align='right' width='7.5%' bgColor=#ff0000>3</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 59375</td>
+<td align='right' width='7.5%' bgColor=#ff0000>17</td>
+<td align='right' width='7.5%' bgColor=#ff0000>5</td>
+<td align='right' width='7.5%' bgColor=#ff0000>3</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 6250</td>
+<td align='right' width='7.5%' bgColor=#ff0000>246</td>
+<td align='right' width='7.5%' bgColor=#ff0000>208</td>
+<td align='right' width='7.5%' bgColor=#ff0000>399</td>
+<td align='right' width='7.5%' bgColor=#ff0000>16</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 62500</td>
+<td align='right' width='7.5%' bgColor=#ff0000>18</td>
+<td align='right' width='7.5%' bgColor=#ff0000>12</td>
+<td align='right' width='7.5%' bgColor=#ff0000>3</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 65625</td>
+<td align='right' width='7.5%' bgColor=#ff0000>14</td>
+<td align='right' width='7.5%' bgColor=#ff0000>16</td>
+<td align='right' width='7.5%' bgColor=#ff0000>1</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 68750</td>
+<td align='right' width='7.5%' bgColor=#ff0000>7</td>
+<td align='right' width='7.5%' bgColor=#ff0000>13</td>
+<td align='right' width='7.5%' bgColor=#ff0000>4</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 71875</td>
+<td align='right' width='7.5%' bgColor=#ff0000>25</td>
+<td align='right' width='7.5%' bgColor=#ff0000>19</td>
+<td align='right' width='7.5%' bgColor=#ff0000>3</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 75000</td>
+<td align='right' width='7.5%' bgColor=#ff0000>25</td>
+<td align='right' width='7.5%' bgColor=#ff0000>7</td>
+<td align='right' width='7.5%' bgColor=#ff0000>1</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 78125</td>
+<td align='right' width='7.5%' bgColor=#ff0000>17</td>
+<td align='right' width='7.5%' bgColor=#ff0000>12</td>
+<td align='right' width='7.5%' bgColor=#ff0000>2</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 81250</td>
+<td align='right' width='7.5%' bgColor=#ff0000>12</td>
+<td align='right' width='7.5%' bgColor=#ff0000>6</td>
+<td align='right' width='7.5%' bgColor=#ff0000>2</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 84375</td>
+<td align='right' width='7.5%' bgColor=#ff0000>11</td>
+<td align='right' width='7.5%' bgColor=#ff0000>5</td>
+<td align='right' width='7.5%' bgColor=#ff0000>1</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 87500</td>
+<td align='right' width='7.5%' bgColor=#ff0000>4</td>
+<td align='right' width='7.5%' bgColor=#ff0000>5</td>
+<td align='right' width='7.5%' bgColor=#ff0000>2</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 90625</td>
+<td align='right' width='7.5%' bgColor=#ff0000>11</td>
+<td align='right' width='7.5%' bgColor=#ff0000>7</td>
+<td align='right' width='7.5%' bgColor=#ff0000>2</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 9375</td>
+<td align='right' width='7.5%' bgColor=#ff0000>6092</td>
+<td align='right' width='7.5%' bgColor=#ff0000>5352</td>
+<td align='right' width='7.5%' bgColor=#ff0000>1110</td>
+<td align='right' width='7.5%' bgColor=#ff0000>307</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 93750</td>
+<td align='right' width='7.5%' bgColor=#ff0000>1</td>
+<td align='right' width='7.5%' bgColor=#ff0000>4</td>
+<td align='right' width='7.5%' bgColor=#ff0000>3</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td align='center'>100000, 96875</td>
+<td align='right' width='7.5%' bgColor=#ff0000>3</td>
+<td align='right' width='7.5%' bgColor=#ff0000>3</td>
+<td align='right' width='7.5%' bgColor=#ff0000>5</td>
+<td>FORBIDDEN</td>
+<td>No default case provided, assume FORBIDDEN</td>
+</tr>
+<tr>
+<td></td>
+<td align='center' bgColor='red '>FAILED</td>
+<td align='center' bgColor='red '>FAILED</td>
+<td align='center' bgColor='red '>FAILED</td>
+<td align='center' bgColor='red '>FAILED</td>
+<td></td>
+<td></td>
+</tr>
+</table>
+<h3>Auxiliary data</h3>
+</body>
+</html>
