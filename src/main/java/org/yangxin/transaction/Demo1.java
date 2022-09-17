@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.core.type.classreading.CachingMetadataReaderFactory;
+import org.springframework.core.type.classreading.MetadataReader;
+import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -18,6 +22,7 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Map;
 import java.util.Properties;
 
 public class Demo1 {
@@ -95,6 +100,20 @@ public class Demo1 {
         connection.commit();
         connection.close();
         dataSource.close();
+    }
+
+    /**
+     * 测试spring解析注解的类
+     * @date 2022/9/17 10:15
+     * @throws Exception
+     */
+    @Test
+    public void test_medatafacotry() throws Exception{
+        MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory();
+        MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(Config.class.getName());
+        AnnotationMetadata annotationMetadata = metadataReader.getAnnotationMetadata();
+        Map<String, Object> config = annotationMetadata.getAnnotationAttributes(Configuration.class.getName());
+        Assert.isNull(config, "没有这个注解");
     }
 
     @Test
