@@ -10,6 +10,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 @JCStressTest
 @State
 @Outcome(id = "10", expect = Expect.ACCEPTABLE_INTERESTING, desc = "预想值")
+/*
+测试parallelStream是否同步执行
+ */
 public class Demo4 {
     private AtomicInteger i = new AtomicInteger(0);
     private List<Integer> ls = new ArrayList(){
